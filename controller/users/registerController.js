@@ -3,7 +3,6 @@ const Cart = require('../../model/Cart');
 const Wishlist = require('../../model/Wishlist')
 const bcrypt = require('bcrypt');
 
-
 const handleNewUser = async (req, res) => {
   const { first_name, username, password } = req.body;
   if(!first_name || !username || !password ) return res.status(400).json({"message": "All fields are required"});

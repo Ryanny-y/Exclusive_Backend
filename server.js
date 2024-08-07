@@ -27,14 +27,16 @@ app.use('/', require('./routes/root'));
 // User Routes
 app.use('/register', require('./routes/users/register'));
 app.use('/auth', require('./routes/users/auth'));
+app.use('/refresh', require('./routes/users/refresh'));
+app.use('/logout', require('./routes/users/logout'));
 
 // Public Routes
 app.use(verifyJWT);
 app.use('/products', require('./routes/api/products'));
 app.use('/flashsales', require('./routes/api/flashsales'));
 
+// Protected Routes [cart, wishlist, my account]
 
-// Protected Routes
 
 // 404 handler
 app.use('*', (req, res) => {
