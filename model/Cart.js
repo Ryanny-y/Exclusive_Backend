@@ -12,7 +12,8 @@ const CartSchema = new Schema({
     },
     quantity: {
       type: Number
-    }
+    },
+    _id: false
   }]
 });
 
