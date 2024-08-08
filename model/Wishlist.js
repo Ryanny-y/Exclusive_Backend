@@ -9,8 +9,9 @@ const WishlistSchema = new Schema({
   products: [{
     productId: {
       type: String,
-    }
-  }]
+    },
+    _id: false
+  }],
 });
 
 

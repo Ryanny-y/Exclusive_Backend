@@ -5,6 +5,8 @@ const connDB = require('./config/connDB');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
 const verifyJWT = require('./middlewares/verifyJWT');
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
 
 // CORE MODULES
 const path = require('path')
@@ -16,6 +18,7 @@ require('dotenv').config();
 connDB();
 
 // Middlewares
+app.use(cors(corsOptions));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
@@ -37,6 +40,7 @@ app.use('/flashsales', require('./routes/api/flashsales'));
 // Protected Routes [cart, wishlist, my account]
 app.use(verifyJWT);
 app.use('/cart', require('./routes/api/cart'));
+app.use('/wishlist', require('./routes/api/wishlist'));
 
 // 404 handler
 app.use('*', (req, res) => {
