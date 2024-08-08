@@ -11,17 +11,19 @@ const getProducts = async (req, res) => {
 }
 
 const createProduct = async (req, res) => {
-  const { name, description, stock_quantity, price, ratings } = req.body;
+  const { name, description, images, stock_quantity, price, discount, ratings, size } = req.body;
   if(!name, !description, !stock_quantity, !price ) return res.json({"message": "All Fields are required."});
   try {
     const newProduct = await Flashsale.create({
       name,
       description,
+      images,
       stock_quantity,
       price,
+      discount,
       ratings,
+      size
     });
-    console.log(newProduct);
     
     res.status(201).json({"message": `Product ${name} created!`})
   } catch (error) {

@@ -18,7 +18,7 @@ require('dotenv').config();
 connDB();
 
 // Middlewares
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
@@ -36,6 +36,7 @@ app.use('/logout', require('./routes/users/logout'));
 // Public Routes
 app.use('/products', require('./routes/api/products'));
 app.use('/flashsales', require('./routes/api/flashsales'));
+app.use('/image', require('./routes/api/image'));
 
 // Protected Routes [cart, wishlist, my account]
 app.use(verifyJWT);
@@ -43,7 +44,7 @@ app.use('/cart', require('./routes/api/cart'));
 app.use('/wishlist', require('./routes/api/wishlist'));
 
 // 404 handler
-app.use('*', (req, res) => {
+app.all('*', (req, res) => {
   res.status(404);
   if (req.accepts('html')) {
     res.sendFile(path.join(__dirname, 'view', '404.html'));

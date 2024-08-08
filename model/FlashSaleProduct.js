@@ -11,6 +11,10 @@ const FlashSaleProduct = new Schema({
     type: String,
     required: true
   },
+  images: [{
+    type: String,
+    required: true
+  }],
   stock_quantity: {
     type: Number,
     required: true
