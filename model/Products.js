@@ -11,13 +11,17 @@ const ProductSchema = new Schema({
     type: String,
     required: true
   },
-  image: [{
+  images: [{
     type: String,
     required: true
   }],
   price: {
     type: Number,
     required: true
+  },
+  discount: {
+    type: Number,
+    default: 0
   },
   stock_quantity: {
     type: Number,

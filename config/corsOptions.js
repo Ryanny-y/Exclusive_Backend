@@ -1,13 +1,14 @@
-const allowedList = ['http://localhost:5173/Exclusive-React/', 'http://localhost:3500'];
+const {allowedList} = require('./allowedList');
 
 const corsOptions = {
   origin: (origin, callback) => {
-    if(!origin || allowedList.indexOf(origin) !== -1 ) {
-      callback(null, true)
+    if (!origin || allowedList.includes(origin)) {
+      callback(null, true);
     } else {
       callback(new Error('Not Allowed By CORS'));
     }
-  }
-}
+  },
+  credentials: true // Allow credentials,
+};
 
-module.exports = corsOptions
+module.exports = corsOptions;

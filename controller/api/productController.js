@@ -11,21 +11,22 @@ const getAllProducts = async (req, res) => {
 };
 
 const createNewProduct = async (req, res) => {
-  const { name, description, image, price, stock_quantity, ratings, category, keywords, colors, size } = req.body;
-  if(!name || !description || !image || !price || !stock_quantity || !ratings || !category || !keywords ) return res.status(400).json({"message" : "All Fields are required."})
+  const { name, description, images, price, discount, stock_quantity, ratings, category, keywords, colors, size } = req.body;
+  if(!name || !description || !images || !price || !stock_quantity || !ratings || !category || !keywords ) return res.status(400).json({"message" : "All Fields are required."})
 
   try {
     const newProduct = await Product.create({
       name, 
       description,
-      image,
+      images,
       price,
+      discount,
       stock_quantity,
       ratings,
       category,
-      keywords,
       colors,
-      size
+      size,
+      keywords
     });
     
     res.status(201).json({"message": `Product ${newProduct.name} created`});
