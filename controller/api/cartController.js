@@ -2,14 +2,14 @@
 const Cart = require('../../model/Cart');
 
 const getCartProducts = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
   if(!userId) return res.status(400).json({"message": "User Id is required"})
 
   try {
     const cart = await Cart.findOne({userId}); 
     if(!cart) return res.status(403).jsoN({"message": "Cart not found"})
-    res.json({cart})
+    res.json(cart)
   } catch (error) {
     res.status(500).json({"message": error.message})
   }

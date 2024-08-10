@@ -35,7 +35,6 @@ app.use('/logout', require('./routes/users/logout'));
 
 // Public Routes
 app.use('/products', require('./routes/api/products'));
-app.use('/flashsales', require('./routes/api/flashsales'));
 app.use('/image', require('./routes/api/image'));
 
 // Protected Routes [cart, wishlist, my account]

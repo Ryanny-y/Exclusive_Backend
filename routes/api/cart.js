@@ -3,9 +3,10 @@ const router = express.Router();
 const { addToCart, getCartProducts, updateToCart, deleteFromCart } = require('../../controller/api/cartController');
 
 router.route('/')
-  .get(getCartProducts)
   .post(addToCart)
   .put(updateToCart)
   .delete(deleteFromCart)
+
+router.get('/:userId', getCartProducts);
 
 module.exports = router;
