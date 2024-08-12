@@ -1,7 +1,7 @@
 const Wishlist = require('../../model/Wishlist');
 
 const getWishlistProducts = async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req.params;
 
   if(!userId) return res.status(400).json({"message": "User ID is required"})
 
