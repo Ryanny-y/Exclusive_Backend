@@ -49,3 +49,4 @@ const getSingleProduct = async (req, res) => {
 };
 
 module.exports = { getAllProducts, createNewProduct, getSingleProduct };
+// 
