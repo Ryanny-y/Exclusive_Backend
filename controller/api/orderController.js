@@ -1,4 +1,5 @@
 const Order = require('../../model/Orders');
+const { ObjectId } = require('mongodb');
 
 const getOrders = async (req, res) => {
   const { userId } = req.params;
@@ -53,7 +54,23 @@ const createOrder = async (req, res) => {
 };
 
 const cancelOrder = async (req, res) => {
+  const { userId, orderId }  = req.body;
 
+  if(!userId || !orderId ) return res.status(400).json({"message": "User ID and Order ID are required"});
+
+  try {
+    const order = await Order.findOne({ userId }).exec();
+    const filteredOrders = order.orders.filter(order => {
+      return !order._id.equals(ObjectId.createFromHexString(orderId));
+    })
+
+    order.orders = filteredOrders;
+    await order.save();
+    
+    res.json({"message": `Order ${orderId} Deleted`})
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 const clearOrder = async (req, res) => {

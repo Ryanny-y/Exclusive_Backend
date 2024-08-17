@@ -49,7 +49,6 @@ const addToCart = async (req, res) => {
   }
 };
 
-
 const updateToCart = async (req, res) => {
   const { userId, productId, quantity } = req.body;
 

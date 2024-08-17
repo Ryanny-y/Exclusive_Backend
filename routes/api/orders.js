@@ -5,7 +5,7 @@ const { getOrders, createOrder, cancelOrder, clearOrder } = require('../../contr
 router.route('/')
   .get(getOrders)
   .post(createOrder)
-  .delete(clearOrder)
-  // .delete(cancelOrder);
+  // .delete(clearOrder)
+  .delete(cancelOrder);
 
 module.exports = router;
