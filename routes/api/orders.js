@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { getOrders, createOrder, cancelOrder, clearOrder } = require('../../controller/api/orderController');
+const verifyJWT = require('../../middlewares/verifyJWT');
+const { getOrders, createOrder, cancelOrder } = require('../../controller/api/orderController');
 
 router.route('/')
-  .get(getOrders)
-  .post(createOrder)
-  // .delete(clearOrder)
-  .delete(cancelOrder);
+  .get(verifyJWT, getOrders)
+  .post(verifyJWT, createOrder)
+  .delete(verifyJWT, cancelOrder);
 
 module.exports = router;
