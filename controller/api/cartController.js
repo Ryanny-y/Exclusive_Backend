@@ -8,7 +8,7 @@ const getCartProducts = async (req, res) => {
 
   try {
     const cart = await Cart.findOne({userId}); 
-    if(!cart) return res.status(403).jsoN({"message": "Cart not found"})
+    if(!cart) return res.status(404).jsoN({"message": "Cart not found"})
     res.json(cart)
   } catch (error) {
     res.status(500).json({"message": error.message})
@@ -94,5 +94,5 @@ const deleteFromCart = async (req, res) => {
   }
 
 }
-
+ 
 module.exports = { addToCart, getCartProducts, updateToCart, deleteFromCart }

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const verifyJWT = require('../../middlewares/verifyJWT');
-const { addToCart, getCartProducts, updateToCart, deleteFromCart } = require('../../controller/api/cartController');
+const { addToCart, getCartProducts, updateToCart, deleteFromCart, clearCart } = require('../../controller/api/cartController');
 
 router.route('/')
   .post(verifyJWT, addToCart)

@@ -38,9 +38,9 @@ app.use('/products', require('./routes/api/products'));
 app.use('/image', require('./routes/api/image'));
 
 // Protected Routes [cart, wishlist, my account]
-// app.use(verifyJWT);
 app.use('/cart', require('./routes/api/cart'));
 app.use('/wishlist', require('./routes/api/wishlist'));
+app.use('/orders', require('./routes/api/orders'));
 
 // 404 handler
 app.all('*', (req, res) => {
