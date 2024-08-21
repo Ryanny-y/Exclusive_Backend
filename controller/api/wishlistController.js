@@ -32,7 +32,7 @@ const addToWishlist = async (req, res) => {
       userId,
       products: [ productId ]
     })
-    res.status(201).json(newWishlist)
+    res.status(201).json({message: "Added To Wishlist"})
    }
   } catch (error) {
     res.status(500).json({"message": error.message})
