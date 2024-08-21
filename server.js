@@ -4,7 +4,6 @@ const app = express();
 const connDB = require('./config/connDB');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser')
-const verifyJWT = require('./middlewares/verifyJWT');
 const cors = require('cors');
 const corsOptions = require('./config/corsOptions');
 
@@ -18,7 +17,7 @@ require('dotenv').config();
 connDB();
 
 // Middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 app.use(cookieParser());
