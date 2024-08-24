@@ -10,6 +10,6 @@ router.route('/')
 
 router.get('/:userId', verifyJWT, getCartProducts);
 
-router.delete('/clear', clearCart);
+router.delete('/clear', verifyJWT, clearCart);
 
 module.exports = router;
