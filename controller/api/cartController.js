@@ -77,7 +77,7 @@ const deleteFromCart = async (req, res) => {
   if(!userId || !productId ) res.status(400).json({"message": "User ID and Product ID are required"});
 
   try {
-    const cart = await Cart.findOne({ userId });
+    const cart = await Cart.findOne({ userId }).exec();
     if(!cart) res.status(400).json({"message": "Cart Not Found!"});
 
     const productExist = cart.products.find(product => product.productId === productId);
@@ -93,5 +93,26 @@ const deleteFromCart = async (req, res) => {
   }
 
 }
- 
-module.exports = { addToCart, getCartProducts, updateToCart, deleteFromCart }
+
+const clearCart = async (req, res) => {
+  const { userId } = req.body;
+  if(!userId) return res.status(400).json({'message': 'User ID is required!'});
+
+  try {
+    const cart = await Cart.findOne({ userId }).exec();
+
+    if(!cart) return res.status(404).json({"message": "Cart Not Found!"});
+    
+    if(cart.products.length === 0) return res.json({"message": "Cart Is Empty"})
+
+    cart.products = [];
+    await cart.save();
+
+    res.json({"message": `Cart Cleared Successfully`, cart});
+    
+  } catch (error) {
+    res.status(500).json({"message": error.message})
+  }
+
+}
+module.exports = { addToCart, getCartProducts, updateToCart, deleteFromCart, clearCart }
