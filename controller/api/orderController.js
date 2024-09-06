@@ -7,7 +7,7 @@ const getOrders = async (req, res) => {
   if(!userId) return res.status(400).json({'message': "User ID is required"}); 
   try {
     const orders = await Order.findOne({ userId }).exec();
-    if(!cart) return res.status(404).json({"message": 'Orders not found!'});
+    if(!orders) return res.status(404).json({"message": 'Orders not found!'});
     res.json(orders);
   } catch (error) {
     res.status(500).json({'message': error.message})
