@@ -31,6 +31,7 @@ app.use('/register', require('./routes/users/register'));
 app.use('/auth', require('./routes/users/auth'));
 app.use('/refresh', require('./routes/users/refresh'));
 app.use('/logout', require('./routes/users/logout'));
+app.use('/user', require('./routes/users/user'));
 
 // Public Routes
 app.use('/products', require('./routes/api/products'));
