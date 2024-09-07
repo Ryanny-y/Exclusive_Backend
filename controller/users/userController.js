@@ -12,11 +12,11 @@ const updateUser = async (req, res) => {
     const foundUser = await User.findById(userId);
     if(!foundUser) return res.status(404).json({"message": "User Not Found!"});
     
-    if(body.password) {
+    if(body.newPassword || body.password) {
       const isMatch = await bcrypt.compare(body.password, foundUser.password);
       if (!isMatch) return res.status(401).json({ "message": "Password is incorrect!" });
-      
-      body.password = await bcrypt.hash(body.password, 10);
+
+      body.password = await bcrypt.hash(body.newPassword, 10);
     }
     
     // Update User
