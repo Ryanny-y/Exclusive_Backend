@@ -1,6 +1,18 @@
 const User = require('../../model/User');
 const bcrypt = require('bcrypt');
 
+const getAllUser = async (req, res) => {
+  try {
+    const customers = await User.find();
+
+    if(!customers || customers.length === 0) return res.status(204).json({ message: "No Users Retrieved!"});
+
+    res.json(customers);
+  } catch (error) {
+    res.status(500).json({"message": error.message});
+  }
+};
+
 const updateUser = async (req, res) => { 
   const { body, params: { userId } } = req;
 
@@ -25,9 +37,9 @@ const updateUser = async (req, res) => {
     return res.json(updatedUser);
 
   } catch (error) {
-    res.status(500).json({"message": error.message});
+    res.status(500).json({"error": error.message});
   }
 
 }
 
-module.exports = { updateUser }; 
+module.exports = { getAllUser, updateUser }; 

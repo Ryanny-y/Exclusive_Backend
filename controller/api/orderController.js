@@ -5,7 +5,9 @@ const getAllOrders = async (req, res) => {
   try {
     const orders = await Order.find();
     
-    console.log(orders);
+    if(!orders || orders.length == 0) return res.status(204);
+
+    res.json(orders);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

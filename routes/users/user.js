@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const verifyJWT = require('../../middlewares/verifyJWT');
-const { updateUser } = require('../../controller/users/userController');
+const { updateUser, getAllUser } = require('../../controller/users/userController');
 
+router.get('/all', verifyJWT, getAllUser)
 router.patch("/:userId", verifyJWT, updateUser);
 
 module.exports = router;
