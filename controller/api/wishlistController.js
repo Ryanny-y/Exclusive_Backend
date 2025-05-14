@@ -20,18 +20,20 @@ const addToWishlist = async (req, res) => {
   if(!userId || !productId) return res.status(400).json({"message": "User ID and Product ID are required"});
   try {
    const wishlist = await Wishlist.findOne({ userId });
+
    if(wishlist) {
     const product = wishlist.products.find(product => product.productId === productId);
-    if(product) return res.status(200).json({"message":`Product ${productId} already on wishlist`});
+    if(product) return res.status(200).json({"message":`Product is already on wishlist`});
     wishlist.products.push({ productId });
     await wishlist.save();
 
-    res.json(wishlist);
+    res.json({message: "Added To Wishlist"});
    } else {
     const newWishlist = await Wishlist.create({
       userId,
       products: [ productId ]
     })
+
     res.status(201).json({message: "Added To Wishlist"})
    }
   } catch (error) {

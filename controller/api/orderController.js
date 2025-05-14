@@ -1,24 +1,33 @@
 const Order = require('../../model/Orders');
 const { ObjectId } = require('mongodb');
 
+const getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    
+    console.log(orders);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 const getOrders = async (req, res) => {
   const { userId } = req.params;
 
   if(!userId) return res.status(400).json({'message': "User ID is required"}); 
   try {
     const orders = await Order.findOne({ userId }).exec();
-    if(!orders) return res.status(404).json({"message": 'Orders not found!'});
+    if(!orders) return res.status(404).json({ error: 'Orders not found!'});
     res.json(orders);
   } catch (error) {
-    res.status(500).json({'message': error.message})
+    res.status(500).json({error: error.message})
   }
-
 };
 
 const createOrder = async (req, res) => {
   const { userId, order_items, subtotal, shipping_fee, total, payment_method } = req.body;
 
-  if(!userId || !order_items || order_items.length === 0|| subtotal == null || shipping_fee == null|| total == null || !payment_method ) return res.status(400).json({"message" : "All Fields Are Required!"});
+  if(!userId || !order_items || order_items.length === 0|| subtotal == null || shipping_fee == null|| total == null || !payment_method ) return res.status(400).json({error : "All Fields Are Required!"});
 
   try {
     const order = await Order.findOne({ userId }).exec();
@@ -35,7 +44,7 @@ const createOrder = async (req, res) => {
       order.orders.push(order_details);
       await order.save();
       res.status(201).json({
-        message: "order created!",
+        message: "Order Created!",
         order: order_details
       })
     } else {
@@ -49,14 +58,14 @@ const createOrder = async (req, res) => {
       })
     }
   } catch (error) {
-    console.log(error.message);
+    return res.status(500).json({ error: error.message });
   }
 };
 
 const cancelOrder = async (req, res) => {
   const { userId, orderId }  = req.body;
 
-  if(!userId || !orderId ) return res.status(400).json({"message": "User ID and Order ID are required"});
+  if(!userId || !orderId ) return res.status(400).json({error: "User ID and Order ID are required"});
 
   try {
     const order = await Order.findOne({ userId }).exec();
@@ -69,7 +78,7 @@ const cancelOrder = async (req, res) => {
     
     res.json({"message": `Order ${orderId} Deleted`})
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -82,4 +91,4 @@ const clearOrder = async (req, res) => {
   }
 };
 
-module.exports = { getOrders, createOrder, cancelOrder, clearOrder };
+module.exports = { getAllOrders, getOrders, createOrder, cancelOrder, clearOrder };

@@ -42,6 +42,10 @@ const orderSchema = new Schema({
       type: Date,
       default: Date.now
     },
+    status: {
+      type: String,
+      default: "pending" // pending, processing, shipped, delivered, completed
+    }
   }]
 });
 
