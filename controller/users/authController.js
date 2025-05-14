@@ -7,11 +7,11 @@ require('dotenv').config();
 const handleAuth = async (req, res) => {
   const { username, password } = req.body;
   
-  if(!username || !password ) return res.status(400).json({"message": "All Fields are required."});
+  if(!username || !password ) return res.status(400).json({"error": "All Fields are required."});
 
   try {
     const foundUser = await User.findOne({ username }).exec();
-    if(!foundUser) return res.status(404).json({"message": `User ${username} Not Found!`})
+    if(!foundUser) return res.status(404).json({"error": `User ${username} Not Found!`})
     const match = await bcrypt.compare(password, foundUser.password);
     if(match) {
       // create jwt
@@ -43,11 +43,11 @@ const handleAuth = async (req, res) => {
         accessToken
       });
     } else {
-      return res.status(401).json({"message": "username or password is incorrect"})
+      return res.status(401).json({"error": "username or password is incorrect"})
     }
 
   } catch (error) {
-    res.status(500).json({"message": error.message});
+    res.status(500).json({"error": error.message});
   }
 
 };

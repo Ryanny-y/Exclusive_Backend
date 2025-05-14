@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const verifyJWT = require('../../middlewares/verifyJWT');
-const { getAllOrders, getOrders, createOrder, cancelOrder, getAllOrders } = require('../../controller/api/orderController');
+const { getAllOrders, getOrders, createOrder, cancelOrder } = require('../../controller/api/orderController');
 
 router.route('/')
   .post(verifyJWT, createOrder)
