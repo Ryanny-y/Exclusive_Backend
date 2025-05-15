@@ -32,6 +32,10 @@ const UserSchema = new Schema({
   refresh_token: {
     type: String,
     default: ''
+  },
+  created_at: {
+    type: Date,
+    default: Date.now
   }
 });
 

@@ -18,13 +18,13 @@ const handleRefresh = async (req, res) => {
         const accessToken = jwt.sign(
           { "username": decoded.username},
           process.env.ACCESS_TOKEN_SECRET,
-          { "expiresIn": "15m"}
+          { "expiresIn": "1h"}
         )
         res.json({ accessToken });
       }
     )
   } catch (error) {
-    res.status(500).json({ "message": error.message });
+    res.status(500).json({ "error": error.message });
   }
 
 };
