@@ -34,8 +34,8 @@ const handleAuth = async (req, res) => {
       res.json({
         data: {
           id: foundUser._id,
-          firstName: foundUser.first_name,
-          lastName: foundUser.last_name,
+          first_name: foundUser.first_name,
+          last_name: foundUser.last_name,
           username: foundUser.username,
           email: foundUser.email,
           address: foundUser.address,
