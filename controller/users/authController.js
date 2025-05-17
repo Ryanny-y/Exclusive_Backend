@@ -33,7 +33,7 @@ const handleAuth = async (req, res) => {
       res.cookie('jwt', refreshToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000}) // In production secure: true, sameSite: 'None' 
       res.json({
         data: {
-          id: foundUser._id,
+          _id: foundUser._id,
           first_name: foundUser.first_name,
           last_name: foundUser.last_name,
           username: foundUser.username,
